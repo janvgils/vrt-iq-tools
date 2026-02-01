@@ -433,7 +433,6 @@ int main(int argc, char* argv[])
         if( result != HYDRASDR_SUCCESS ) {
             fprintf(stderr, "hydrasdr_set_packing() failed: %s (%d)\n", hydrasdr_error_name((hydrasdr_error)result), result);
             hydrasdr_close(device);
-            hydrasdr_exit();
             return EXIT_FAILURE;
         }
         fprintf(stderr, "Packing enabled\n");
@@ -443,7 +442,6 @@ int main(int argc, char* argv[])
     if( result != HYDRASDR_SUCCESS ) {
         fprintf(stderr, "hydrasdr_set_rf_bias() failed: %s (%d)\n", hydrasdr_error_name((hydrasdr_error)result), result);
         hydrasdr_close(device);
-        hydrasdr_exit();
         return EXIT_FAILURE;
     }
 

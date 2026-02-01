@@ -348,25 +348,18 @@ int main(int argc, char* argv[])
 
     // create an hydrasdr device
 
-    int result = hydrasdr_init();
-    if( result != HYDRASDR_SUCCESS ) {
-        fprintf(stderr, "hydrasdr_init() failed: %s (%d)\n", hydrasdr_error_name((hydrasdr_error)result), result);
-        return EXIT_FAILURE;
-    }
-
+    int result;
     if(serial_number == true)
     {
         result = hydrasdr_open_sn(&device, serial_number_val);
         if( result != HYDRASDR_SUCCESS ) {
             fprintf(stderr, "hydrasdr_open_sn() failed: %s (%d)\n", hydrasdr_error_name((hydrasdr_error)result), result);
-            hydrasdr_exit();
             return EXIT_FAILURE;
         }
     } else {
         result = hydrasdr_open(&device);
         if( result != HYDRASDR_SUCCESS ) {
             fprintf(stderr, "hydrasdr_open() failed: %s (%d)\n", hydrasdr_error_name((hydrasdr_error)result), result);
-            hydrasdr_exit();
             return EXIT_FAILURE;
         }
     }
@@ -377,7 +370,6 @@ int main(int argc, char* argv[])
     if (result != HYDRASDR_SUCCESS) {
         fprintf(stderr, "hydrasdr_set_sample_type() failed: %s (%d)\n", hydrasdr_error_name((hydrasdr_error)result), result);
         hydrasdr_close(device);
-        hydrasdr_exit();
         return EXIT_FAILURE;
     }
 

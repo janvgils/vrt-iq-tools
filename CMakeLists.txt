@@ -71,6 +71,17 @@ else()
     WARNING "Airspy library not found, not building airspy_to_vrt")
 endif()
 
+find_library(HYDRASDR_LIBRARY hydrasdr)
+if(HYDRASDR_LIBRARY)
+	find_path(HYDRASDR_INCLUDE_DIR NAMES libhydrasdr/hydrasdr.h REQUIRED)
+  add_executable(hydrasdr_to_vrt hydrasdr_to_vrt.cpp)
+  target_include_directories(hydrasdr_to_vrt PRIVATE ${HYDRASDR_INCLUDE_DIR})
+  target_link_libraries(hydrasdr_to_vrt PRIVATE ${HYDRASDR_LIBRARY})
+else()
+  message(
+	  WARNING "HydraSDR library not found, not building hydrasdr_to_vrt")
+endif()
+
 find_package(CUDAToolkit)
 if(NOT CUDAToolkit_FOUND)
   message(WARNING "CUDA not found, building without GPU support")
